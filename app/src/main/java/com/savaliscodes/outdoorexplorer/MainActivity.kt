@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_activities,
                 R.id.navigation_locations,
                 R.id.navigation_map
-            )
+            )//get otherviews
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)

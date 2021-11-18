@@ -23,7 +23,7 @@ class ActivitiesAdapter(private val onClickListener: OnClickListener) :
 
     override fun getItemCount(): Int {
         return allActivities.size
-    }
+    }//kk
 
     fun setActivities(activities: List<Activity>) {
         allActivities = activities

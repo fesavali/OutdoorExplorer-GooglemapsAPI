@@ -51,7 +51,7 @@ data class LocationWithActivities(
     @Relation(
         parentColumn = "locationId",
         entityColumn = "activityId",
-        associateBy = Junction(ActivityLocationCrossRef::class)
+        associateBy = Junction(ActivityLocationCrossRef::class) //local id
     )
     val activities: List<Activity>
 )
