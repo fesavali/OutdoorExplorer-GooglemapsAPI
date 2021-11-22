@@ -55,5 +55,5 @@ data class LocationWithActivities(
     )
     val activities: List<Activity>
 )
-
+//places
 class GeofencingChanges(val idsToRemove: List<String>, val locationsToAdd: List<Geofence>)
