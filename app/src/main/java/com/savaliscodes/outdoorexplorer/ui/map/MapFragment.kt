@@ -38,7 +38,7 @@ class MapFragment : Fragment() {
             .get(MapViewModel::class.java)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
-        mapFragment.getMapAsync { map->
+        mapFragment?.getMapAsync { map->
             googleMap = map
             val bay = LatLng(-1.302221, 36.815502)
             map.moveCamera(CameraUpdateFactory.zoomTo(20f))
