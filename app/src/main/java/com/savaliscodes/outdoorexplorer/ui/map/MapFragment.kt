@@ -1,5 +1,6 @@
 package com.savaliscodes.outdoorexplorer.ui.map
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
@@ -21,7 +22,11 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.savaliscodes.outdoorexplorer.R
+import com.savaliscodes.outdoorexplorer.ui.locations.LocationsFragment
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
 
 class MapFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
@@ -41,7 +46,7 @@ class MapFragment : Fragment() {
         mapFragment?.getMapAsync { map->
             googleMap = map
             val bay = LatLng(-1.302221, 36.815502)
-            map.moveCamera(CameraUpdateFactory.zoomTo(20f))
+            map.moveCamera(CameraUpdateFactory.zoomTo(15f))
             map.moveCamera(CameraUpdateFactory.newLatLng(bay))
             map.uiSettings.isZoomControlsEnabled = true
             map.uiSettings.isTiltGesturesEnabled = false
@@ -68,8 +73,43 @@ class MapFragment : Fragment() {
                 val navigationController = Navigation.findNavController(requireView())
                 navigationController.navigate(action)
             }
+            enableMyLocation()
         }
 
+    }
+
+    @SuppressLint("MissingPermission")
+    @AfterPermissionGranted(RC_LOCATION)
+    private fun enableMyLocation() {
+        if(EasyPermissions.hasPermissions(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)){
+            googleMap.isMyLocationEnabled = true
+        }else{
+            Snackbar.make(
+                requireView(),
+                getString(R.string.map_snackbar),
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(R.string.ok){
+                EasyPermissions.requestPermissions(
+                    this,
+                    getString(R.string.map_rationale),
+                    RC_LOCATION,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            }.show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(
+            requestCode, permissions,
+            grantResults, this
+        )
     }
 
     private fun getBitmapFromVector(
@@ -96,5 +136,8 @@ class MapFragment : Fragment() {
         )
         vectorDrawable.draw(canvas)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+    companion object{
+        const val RC_LOCATION = 1
     }
 }
