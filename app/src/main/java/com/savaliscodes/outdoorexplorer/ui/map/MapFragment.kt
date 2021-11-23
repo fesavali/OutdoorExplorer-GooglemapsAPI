@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.savaliscodes.outdoorexplorer.R
 
 class MapFragment : Fragment() {
+    private lateinit var googleMap: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +39,9 @@ class MapFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
         mapFragment.getMapAsync { map->
+            googleMap = map
             val bay = LatLng(-1.302221, 36.815502)
-            map.moveCamera(CameraUpdateFactory.zoomTo(10f))
+            map.moveCamera(CameraUpdateFactory.zoomTo(20f))
             map.moveCamera(CameraUpdateFactory.newLatLng(bay))
             map.uiSettings.isZoomControlsEnabled = true
             map.uiSettings.isTiltGesturesEnabled = false
