@@ -10,4 +10,8 @@
     <string name="distance_value">%1$.2f mi</string>
     <string name="ok">OK</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="snackbar">Show Distance To Locations</string>
+    <string name="rationale_text">We need access to your location to show you recreation opportunities near your current location. This data is not stored or shared.</string>
+    <string name="map_snackbar">Show your location on the map?</string>
+    <string name="map_rationale">We need access to your location to show your location relative to recreation opportunities near you. This data is not stored or shared.</string>
 </resources>
