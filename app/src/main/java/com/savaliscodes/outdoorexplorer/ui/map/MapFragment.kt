@@ -18,11 +18,9 @@ import androidx.navigation.Navigation
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
+import com.savaliscodes.outdoorexplorer.BuildConfig
 import com.savaliscodes.outdoorexplorer.R
 import com.savaliscodes.outdoorexplorer.ui.locations.LocationsFragment
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -65,6 +63,14 @@ class MapFragment : Fragment() {
                         )
                         .alpha(.75f))
                     marker.tag = location.locationId
+
+                    if(BuildConfig.DEBUG){
+                       map.addCircle(
+                           CircleOptions()
+                               .center(point)
+                               .radius(location.geofenceRadius.toDouble())
+                       )
+                    }
                 }
             })
             map.setOnInfoWindowClickListener { marker->
