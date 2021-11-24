@@ -49,7 +49,6 @@
                 android:layout_margin="8dp"
                 android:src="@drawable/ic_baseline_tap_and_play_24"
                 android:tint="@color/colorGray"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
